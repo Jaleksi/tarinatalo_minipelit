@@ -14,7 +14,7 @@ public class Exercise
 
 
 [System.Serializable]
-public class ExerciseList
+public class ExerciseArray
 {
     public Exercise[] exercises;
 }
