@@ -5,21 +5,21 @@
             "sentence": "Lääkärin täytyi tehdä ___________ leikkaus.",
             "word1": "kiireellinen",
             "word2": "kiireinen",
-            "rightAnswer": "kiireellinen",
+            "correctAnswer": "kiireellinen",
             "explanation": "Lääkäri on voi olla kiireinen, leikkaus on kiireellinen"
         },
         {
             "sentence": "_____________ on ongelma monessa koulussa.",
             "word1": "kiusaus",
             "word2": "kiusaaminen",
-            "rightAnswer": "kiusaaminen",
+            "correctAnswer": "kiusaaminen",
             "explanation": "Kiusaaminen on sitä, kun joku kiusaa. Kiusaus tarkoittaa houkutusta"
         },
         {
             "sentence": "Pidän ___________ tummasta suklaasta.",
             "word1": "erityisesti",
             "word2": "erikoisesti",
-            "rightAnswer": "erityisesti",
+            "correctAnswer": "erityisesti",
             "explanation": "Erityisesti viittaa juuri johonkin tiettyyn asiaan. Erikoisesti tarkoittaa omituisesti tai oudosti."
         }
     ]

@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public TextAsset textJSON;
     public ExerciseArray myExcercises;
 
+    public UIManager ui;
+
+
     private static List<Exercise> unansweredExercises;
     private Exercise currentExercise;
 
@@ -25,17 +28,15 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //myExcercises = new ExerciseArray();
         myExcercises = JsonUtility.FromJson<ExerciseArray>(textJSON.text);
 
         if (unansweredExercises == null || unansweredExercises.Count == 0)
         {
-            unansweredExercises = myExcercises.exercises.ToList<Exercise>();
-           
+            unansweredExercises = myExcercises.exercises.ToList<Exercise>();    
         }
 
         SetCurrentExercise();
-        Debug.Log(currentExercise.sentence);
+ 
     }
 
     // Update is called once per frame
@@ -44,37 +45,29 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void SetCurrentExercise ()
+    public void SetCurrentExercise ()
     {
-        int randomExerciseIndex = Random.Range(0, unansweredExercises.Count);
-        currentExercise = unansweredExercises[randomExerciseIndex];
+        if (unansweredExercises.Count > 0) { 
+            int randomExerciseIndex = Random.Range(0, unansweredExercises.Count);
+            currentExercise = unansweredExercises[randomExerciseIndex];
+
+            ui.SetSentence(currentExercise.sentence);
+            ui.SetLeftWord(currentExercise.word1);
+            ui.SetRightWord(currentExercise.word2);
+            unansweredExercises.RemoveAt(randomExerciseIndex);
+        }
    
-        sentence.text = currentExercise.sentence;
-        leftButtonText.text = currentExercise.word1;
-        rightButtonText.text = currentExercise.word2;    
-        unansweredExercises.RemoveAt(randomExerciseIndex);
     }
 
-    public void UserSelectsLeftButton ()
+    public void CheckAnswer (string answer)
     {
-        if (leftButtonText.text.Equals(currentExercise.rightAnswer))
+        if (answer.Equals(currentExercise.correctAnswer)) 
         {
-            Debug.Log("Correct answer");
-        } else
-        {
-            Debug.Log("Wrong answer");
+            ui.SetFeedpack("Oikein meni!", currentExercise.explanation);
         }
-    }
-
-    public void UserSelectRightButton ()
-    {
-        if (rightButtonText.text.Equals(currentExercise.rightAnswer))
+        else
         {
-            Debug.Log("Correct answer");
-        }else
-        {
-            Debug.Log("Wrong answer");
+            ui.SetFeedpack("Nyt ei osunut oikeaan.", currentExercise.explanation);
         }
-       
     }
 }

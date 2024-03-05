@@ -8,7 +8,7 @@ public class Exercise
     public string sentence;
     public string word1;
     public string word2;
-    public string rightAnswer;
+    public string correctAnswer;
     public string explanation;
 }
 
