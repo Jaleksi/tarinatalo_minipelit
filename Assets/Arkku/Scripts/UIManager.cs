@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour
     private string instructionTextText = "Tässä on ohjeet";
     private string winningHeadline = "Läpäisit pelin";
     private string winningText = "Sait sanataiturin arvomerkin<br><br>Pisteesi: 5000";
+    private string correctAnswerFeedpackText = "Oikein meni!";
+    private string wrongAnswerFeedpackText = "Nyt ei osunut oikeaan";
+
 
     private void OnEnable()
     {
@@ -48,8 +51,8 @@ public class UIManager : MonoBehaviour
 
         SetInstructions();
 
-        leftButton.clicked += () => gameManager.CheckAnswer(leftWord);
-        rightButton.clicked += () => gameManager.CheckAnswer(rightWord);
+        leftButton.clicked += () => CheckAnswer(leftWord);
+        rightButton.clicked += () => CheckAnswer(rightWord);
         instructionButton.clicked += () => SetInstructions();
         panelButton.clicked += () => SetPanelExit();
         exitButton.clicked += () => Application.Quit();
@@ -133,11 +136,29 @@ public class UIManager : MonoBehaviour
     private void ContinueGame ()
     {
         panelSection.style.display = DisplayStyle.None;
-        gameManager.CheckIfGameEnded();
+        bool gameEnded = gameManager.CheckIfGameEnded();
         UpProgressBar(gameManager.GetPoints(), gameManager.GetPointsToWin());
-        gameManager.SetCurrentExercise();
+        
+        if (gameEnded) {
+           Invoke("DeclareWin", 2f);
+        } 
+        else 
+        {
+             gameManager.SetCurrentExercise();
+        }
     }
 
+    private void CheckAnswer (string answer) {
+
+        if(gameManager.IsAnswerCorrect(answer)) {
+            SetFeedpack(correctAnswerFeedpackText, gameManager.GetCurrentExplanation());
+        }
+        else
+        {
+            SetFeedpack(wrongAnswerFeedpackText, gameManager.GetCurrentExplanation());
+        }
+    }
+    
     public void DeclareWin () 
     {
         
